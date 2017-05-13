@@ -19,8 +19,8 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
     private $mc4wp_mailchimp;
 
     public function __construct( $owner, $account_name, $api_key = '' ) {
-        parent::__construct( $owner, $account_name, $api_key );
         $this->mc4wp_mailchimp = new MC4WP_MailChimp();
+        parent::__construct( $owner, $account_name, $api_key );
     }
 
     /**
