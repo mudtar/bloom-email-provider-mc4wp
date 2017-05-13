@@ -28,12 +28,18 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
      */
     public function fetch_subscriber_lists() {
         $lists = $this->mc4wp_mailchimp->get_lists();
-        foreach ( $lists as $list ) {
-            $this->data['lists'][ $list->id ] = array(
-                'list_id'           => $list->id,
-                'name'              => $list->name,
-                'subscribers_count' => $list->subscriber_count,
-            );
+
+        if ( $lists ) {
+            foreach ( $lists as $list ) {
+                $this->data['lists'][ $list->id ] = array(
+                    'list_id'           => $list->id,
+                    'name'              => $list->name,
+                    'subscribers_count' => $list->subscriber_count,
+                );
+            }
+
+            $this->data['is_authorized'] = true;
+            $this->save_data();
         }
 
         return 'success';
