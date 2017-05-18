@@ -87,6 +87,7 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
      */
     public function subscribe( $args, $url = '' ) {
         $list_id = $args['list_id'];
+
         $args = $this->transform_data_to_provider_format( $args, 'subscriber' );
         $args['ip_signup'] = et_core_get_ip_address();
         $args['status'] = empty( $args['dbl_optin'] ) ? 'pending' : 'subscribed';
