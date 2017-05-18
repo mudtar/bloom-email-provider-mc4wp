@@ -56,18 +56,42 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
      * @inheritDoc
      */
     public function get_data_keymap( $keymap = array(), $custom_fields_key = '' ) {
-        return array();
+        $custom_fields_key = 'merge_fields';
+
+        $keymap = array(
+            'list' => array(
+                'list_id'           => 'id',
+                'name'              => 'name',
+                'subscribers_count' => 'stats.member_count',
+            ),
+            'subscriber' => array(
+                'email'     => 'email_address',
+                'name'      => 'merge_fields.FNAME',
+                'last_name' => 'merge_fields.LNAME',
+            ),
+            'subscriber_group' => array(
+                'group_id'          => 'id',
+                'name'              => 'name',
+                'subscribers_count' => 'member_count'
+            ),
+            'error' => array(
+                'error_message' => 'detail',
+            ),
+        );
+
+        return parent::get_data_keymap( $keymap, $custom_fields_key );
     }
 
     /**
      * @inheritDoc
      */
     public function subscribe( $args, $url = '' ) {
+        $list_id = $args['list_id'];
         $args = $this->transform_data_to_provider_format( $args, 'subscriber' );
         $args['ip_signup'] = et_core_get_ip_address();
         $args['status'] = empty( $args['dbl_optin'] ) ? 'pending' : 'subscribed';
 
-        $data = $this->mc4wp_mailchimp->list_subscribe( $args['list_id'], $args['email_address'], $args );
+        $data = $this->mc4wp_mailchimp->list_subscribe( $list_id, $args['email_address'], $args );
 
         $result = 'success';
 
