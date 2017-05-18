@@ -87,6 +87,30 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
     }
 
     /**
+     * Transforms the comma separated list of interest IDs from the
+     * account fields into the format accepted by the MailChimp v3 API
+     * and returns it.
+     *
+     * @return array
+     */
+    private function _transform_interest_ids_to_provider_format() {
+        $interests = array();
+
+        if ( isset( $this->data['interest_ids'] ) ) {
+            $interest_ids =
+                explode( ',', $this->data['interest_ids'] );
+
+            foreach ( $interest_ids as $id ) {
+               if ( !empty( $id ) && ctype_xdigit( $id ) ) {
+                   $interests[ $id ] = true;
+               }
+            }
+        }
+
+        return $interests;
+    }
+
+    /**
      * @inheritDoc
      */
     public function subscribe( $args, $url = '' ) {
@@ -95,6 +119,11 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
         $args = $this->transform_data_to_provider_format( $args, 'subscriber' );
         $args['ip_signup'] = et_core_get_ip_address();
         $args['status'] = empty( $args['dbl_optin'] ) ? 'pending' : 'subscribed';
+
+        $interests = _transform_interest_ids_to_provider_format();
+        if ( !empty( $interests ) ) {
+            $args['interests'] = $interests;
+        }
 
         $data = $this->mc4wp_mailchimp->list_subscribe( $list_id, $args['email_address'], $args );
 
