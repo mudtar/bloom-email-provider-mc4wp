@@ -50,8 +50,8 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
      */
     public function get_account_fields() {
         return array(
-            'interest_category_ids' => array(
-                'label' => 'Interest Category IDs',
+            'interest_ids' => array(
+                'label' => 'Interest IDs',
             ),
         );
     }
