@@ -120,7 +120,7 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
         $args['ip_signup'] = et_core_get_ip_address();
         $args['status'] = empty( $args['dbl_optin'] ) ? 'pending' : 'subscribed';
 
-        $interests = _transform_interest_ids_to_provider_format();
+        $interests = $this->_transform_interest_ids_to_provider_format();
         if ( !empty( $interests ) ) {
             $args['interests'] = $interests;
         }
