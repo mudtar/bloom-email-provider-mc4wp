@@ -19,8 +19,7 @@ function bloom_mc4wp_initially_authorize_default_account() {
     // Only run this in the administration panel to avoid unnecessary
     // frontend overhead.
     if ( is_admin() ) {
-        $providers = new ET_Core_API_Email_Providers;
-        $provider = $providers->get( 'mc4wp', 'default', 'bloom' );
+        $provider = $GLOBALS['et_bloom']->providers->get( 'mc4wp', 'default', 'bloom' );
 
         if ( $provider && !$provider->is_authenticated() ) {
             $provider->data['is_authorized'] = true;
