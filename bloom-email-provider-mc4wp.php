@@ -29,4 +29,4 @@ function bloom_mc4wp_initially_authorize_default_account() {
         }
     }
 }
-add_filter( 'init', 'bloom_mc4wp_initially_authorize_default_account' );
+add_action( 'init', 'bloom_mc4wp_initially_authorize_default_account' );
