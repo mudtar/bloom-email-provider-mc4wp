@@ -115,10 +115,14 @@ class ET_Core_API_Email_MC4WP extends ET_Core_API_Email_Provider {
      */
     public function subscribe( $args, $url = '' ) {
         $list_id = $args['list_id'];
+        $optin_id = $args['optin_id'];
+        $page_id = $args['page_id'];
 
         $args = $this->transform_data_to_provider_format( $args, 'subscriber' );
         $args['ip_signup'] = et_core_get_ip_address();
         $args['status'] = empty( $args['dbl_optin'] ) ? 'pending' : 'subscribed';
+        $args['merge_fields']['OPTIN'] = $optin_id;
+        $args['merge_fields']['SIGNUPPOST'] = $page_id;
 
         $interests = $this->_transform_interest_ids_to_provider_format();
         if ( !empty( $interests ) ) {
