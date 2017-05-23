@@ -1,7 +1,11 @@
 <?php
-/*
-Plugin Name: Bloom Email Provider: MC4WP
-*/
+/**
+ * Plugin Name: Bloom Email Provider: MC4WP
+ * Plugin URI:  https://github.com/mudtar/bloom-email-provider-mc4wp
+ * Description: Adds an email provider for bloom built on top of mailchimp-for-wp.
+ * Author:      Ian Burton
+ * Author URI:  https://github.com/mudtar
+ */
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
